@@ -39,9 +39,10 @@
 
 ```bash
 ┌─────────────────────────────────────────────────────────┐
-│  MCP Server (6 tools)                                   │
+│  MCP Server (7 tools)                                   │
 │  vault_search · vault_add_edge · vault_query_graph      │
 │  vault_graph_stats · vault_lint · vault_index           │
+│  vault_info                                             │
 ├─────────────────────────────────────────────────────────┤
 │  Core Modules                                           │
 │  index.ts (BM25) · graph.ts (edges+traversal) · lint.ts│
@@ -61,6 +62,7 @@
 | `vault_graph_stats` | Global or per-node graph statistics and orphan detection |
 | `vault_lint` | Batch validation (5 check types) with optional auto-fix |
 | `vault_index` | Rebuild search index (incremental or full) |
+| `vault_info` | Returns vault metadata (root, directories, types, stats) for session init |
 
 ### Skills (8)
 
@@ -112,11 +114,11 @@
 # Install
 npm install
 
-# Run tests (66 tests)
+# Run tests (77 tests)
 npm test
 
 # Start MCP server
-VAULT_ROOT=/path/to/vault npx tsx src/server.ts
+VAULT_ROOT=/path/to/vault npx @yogsoth-ai/wiki-vault
 ```
 
 ### MCP Configuration
@@ -126,8 +128,9 @@ Add to your `.mcp.json`:
 ```json
 {
   "wiki-vault": {
+    "type": "stdio",
     "command": "npx",
-    "args": ["tsx", "src/server.ts"],
+    "args": ["@yogsoth-ai/wiki-vault"],
     "env": { "VAULT_ROOT": "/path/to/your/vault" }
   }
 }
