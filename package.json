@@ -1,14 +1,45 @@
 {
   "name": "@yogsoth-ai/wiki-vault",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Research Knowledge Vault MCP Server — BM25 search, graph traversal, lint, and index operations for Obsidian-compatible research wikis.",
   "type": "module",
-  "description": "Research Knowledge Vault MCP Server — provides search, graph traversal, lint, and index operations for a structured Obsidian-compatible research wiki.",
   "main": "dist/server.js",
+  "types": "dist/server.d.ts",
+  "bin": {
+    "wiki-vault": "dist/server.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "mcp": "tsx src/server.ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "npm run build && npm test"
   },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "wiki",
+    "knowledge-graph",
+    "research",
+    "obsidian",
+    "bm25",
+    "llm-wiki",
+    "vault"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yogsoth-ai/wiki-vault.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yogsoth-ai/wiki-vault/issues"
+  },
+  "homepage": "https://github.com/yogsoth-ai/wiki-vault#readme",
+  "author": "yogsoth-ai",
+  "license": "Apache-2.0",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",
     "zod": "^3.24.4"
@@ -21,6 +52,5 @@
   },
   "engines": {
     "node": ">=20"
-  },
-  "license": "Apache-2.0"
+  }
 }

@@ -1,9 +1,12 @@
 {
-  "wiki-vault": {
-    "command": "npx",
-    "args": ["tsx", "src/server.ts"],
-    "env": {
-      "VAULT_ROOT": "/path/to/your/vault"
+  "mcpServers": {
+    "wiki-vault": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@yogsoth-ai/wiki-vault"],
+      "env": {
+        "VAULT_ROOT": "/path/to/your/vault"
+      }
     }
   }
 }
