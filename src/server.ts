@@ -1,7 +1,13 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
-import { getVaultRoot, ensureVaultDirs, ENTITY_TYPES } from './vault.js';
+import { getVaultRoot, ensureVaultDirs } from './vault.js';
+import { vaultSearch } from './tools/vault-search.js';
+import { vaultAddEdge } from './tools/vault-add-edge.js';
+import { vaultQueryGraph } from './tools/vault-query-graph.js';
+import { vaultGraphStats } from './tools/vault-graph-stats.js';
+import { vaultLint } from './tools/vault-lint.js';
+import { vaultIndex } from './tools/vault-index.js';
 
 const server = new McpServer({
   name: 'wiki-vault',
@@ -10,9 +16,6 @@ const server = new McpServer({
 
 const vaultRoot = getVaultRoot();
 ensureVaultDirs(vaultRoot);
-
-// Tools are registered in their respective modules and imported here
-// For now, register placeholder descriptions — implementations added in Tasks 3-5
 
 server.tool(
   'vault_search',
@@ -23,7 +26,10 @@ server.tool(
     tags: z.array(z.string()).optional().describe('Filter by tags'),
     limit: z.number().optional().describe('Max results (default 20)'),
   },
-  async () => ({ content: [{ type: 'text' as const, text: 'Not yet implemented' }] }),
+  async ({ query, type, tags, limit }) => {
+    const result = await vaultSearch(vaultRoot, query, type, tags, limit);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
 );
 
 server.tool(
@@ -36,7 +42,10 @@ server.tool(
     weight: z.number().optional().describe('Edge weight 0.0-1.0 (default 1.0)'),
     metadata: z.record(z.unknown()).optional().describe('Optional metadata'),
   },
-  async () => ({ content: [{ type: 'text' as const, text: 'Not yet implemented' }] }),
+  async ({ source, target, edge_type, weight }) => {
+    const result = await vaultAddEdge(vaultRoot, source, target, edge_type, weight);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
 );
 
 server.tool(
@@ -48,7 +57,10 @@ server.tool(
     edge_type: z.string().optional().describe('Filter by edge type'),
     depth: z.number().optional().describe('Traversal depth (default 1, max 3)'),
   },
-  async () => ({ content: [{ type: 'text' as const, text: 'Not yet implemented' }] }),
+  async ({ node, direction, edge_type, depth }) => {
+    const result = await vaultQueryGraph(vaultRoot, node, direction, edge_type, depth);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
 );
 
 server.tool(
@@ -57,7 +69,10 @@ server.tool(
   {
     node: z.string().optional().describe('Specific node path for local stats'),
   },
-  async () => ({ content: [{ type: 'text' as const, text: 'Not yet implemented' }] }),
+  async ({ node }) => {
+    const result = await vaultGraphStats(vaultRoot, node);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
 );
 
 server.tool(
@@ -66,7 +81,10 @@ server.tool(
   {
     fix: z.boolean().optional().describe('Auto-fix safe issues (default false)'),
   },
-  async () => ({ content: [{ type: 'text' as const, text: 'Not yet implemented' }] }),
+  async ({ fix }) => {
+    const result = await vaultLint(vaultRoot, fix);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
 );
 
 server.tool(
@@ -75,7 +93,10 @@ server.tool(
   {
     full: z.boolean().optional().describe('Full rebuild (default false = incremental)'),
   },
-  async () => ({ content: [{ type: 'text' as const, text: 'Not yet implemented' }] }),
+  async ({ full }) => {
+    const result = await vaultIndex(vaultRoot, full);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
 );
 
 async function main() {
