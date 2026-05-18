@@ -1,6 +1,6 @@
 {
   "name": "@yogsoth-ai/wiki-vault",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Research Knowledge Vault MCP Server — BM25 search, graph traversal, lint, and index operations for Obsidian-compatible research wikis.",
   "type": "module",
   "main": "dist/server.js",

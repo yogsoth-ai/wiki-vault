@@ -14,7 +14,7 @@ import { vaultEdgeAudit } from './tools/vault-edge-audit.js';
 
 const server = new McpServer({
   name: 'wiki-vault',
-  version: '1.2.0',
+  version: '1.2.1',
 });
 
 const vaultRoot = getVaultRoot();

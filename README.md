@@ -39,10 +39,10 @@
 
 ```bash
 ┌─────────────────────────────────────────────────────────┐
-│  MCP Server (7 tools)                                   │
+│  MCP Server (8 tools)                                   │
 │  vault_search · vault_add_edge · vault_query_graph      │
 │  vault_graph_stats · vault_lint · vault_index           │
-│  vault_info                                             │
+│  vault_info · vault_edge_audit                          │
 ├─────────────────────────────────────────────────────────┤
 │  Core Modules                                           │
 │  index.ts (BM25) · graph.ts (edges+traversal) · lint.ts│
@@ -63,8 +63,9 @@
 | `vault_lint` | Batch validation (5 check types) with optional auto-fix |
 | `vault_index` | Rebuild search index (incremental or full) |
 | `vault_info` | Returns vault metadata (root, directories, types, stats) for session init |
+| `vault_edge_audit` | Scan edges and report missing `[[wikilinks]]` in source page bodies |
 
-### Skills (8)
+### Skills (9)
 
 | Level | Skill | Purpose |
 |-------|-------|---------|
@@ -76,6 +77,7 @@
 | SOP | wiki-ingest-source | Write immutable source pages |
 | SOP | wiki-compile-page | Create/update synthesized pages |
 | SOP | wiki-lint-fix | Run lint and optionally fix |
+| SOP | wiki-edge-audit | Audit and fix missing wikilinks for edges |
 
 ### Entity Types
 
@@ -114,7 +116,7 @@
 # Install
 npm install
 
-# Run tests (77 tests)
+# Run tests (84 tests)
 npm test
 
 # Start MCP server
