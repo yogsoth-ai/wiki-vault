@@ -10,10 +10,11 @@ import { vaultGraphStats } from './tools/vault-graph-stats.js';
 import { vaultLint } from './tools/vault-lint.js';
 import { vaultIndex } from './tools/vault-index.js';
 import { vaultInfo } from './tools/vault-info.js';
+import { vaultEdgeAudit } from './tools/vault-edge-audit.js';
 
 const server = new McpServer({
   name: 'wiki-vault',
-  version: '1.1.0',
+  version: '1.2.0',
 });
 
 const vaultRoot = getVaultRoot();
@@ -107,6 +108,16 @@ server.tool(
   {},
   async () => {
     const result = await vaultInfo(vaultRoot);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
+);
+
+server.tool(
+  'vault_edge_audit',
+  'Scan all edges in _edges.jsonl and check whether each source page contains a [[dir/slug]] wikilink to the target. Returns coverage stats and list of missing wikilinks.',
+  {},
+  async () => {
+    const result = await vaultEdgeAudit(vaultRoot);
     return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
   },
 );
