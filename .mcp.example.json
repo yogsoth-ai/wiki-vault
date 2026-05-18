@@ -1,0 +1,9 @@
+{
+  "wiki-vault": {
+    "command": "npx",
+    "args": ["tsx", "src/server.ts"],
+    "env": {
+      "VAULT_ROOT": "/path/to/your/vault"
+    }
+  }
+}
