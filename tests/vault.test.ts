@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { existsSync, rmSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { ensureVaultDirs, resolveVaultPath, isValidEntityType, getVaultRoot, ENTITY_TYPES } from '../src/vault.js';
+import { ensureVaultDirs, resolveVaultPath, isValidEntityType, getVaultRoot, ENTITY_TYPES, EDGE_TYPES } from '../src/vault.js';
 
 const TEST_VAULT = join(tmpdir(), `wiki-vault-test-${Date.now()}`);
 
@@ -105,6 +105,14 @@ describe('vault', () => {
       expect(() => getVaultRoot()).toThrow('VAULT_ROOT environment variable is required');
 
       if (original) process.env.VAULT_ROOT = original;
+    });
+  });
+
+  describe('EDGE_TYPES', () => {
+    it('exports 10 edge types', () => {
+      expect(EDGE_TYPES).toHaveLength(10);
+      expect(EDGE_TYPES).toContain('component_of');
+      expect(EDGE_TYPES).toContain('related_to');
     });
   });
 });

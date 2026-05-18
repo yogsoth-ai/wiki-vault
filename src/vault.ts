@@ -17,6 +17,23 @@ export type EntityType = (typeof ENTITY_DIRS)[number];
 
 export const ENTITY_TYPES: readonly string[] = ENTITY_DIRS;
 
+const EDGE_DIRS = [
+  'component_of',
+  'instance_of',
+  'supported_by',
+  'contradicts',
+  'supersedes',
+  'derived_from',
+  'addresses',
+  'raises',
+  'failed_for',
+  'related_to',
+] as const;
+
+export type EdgeType = (typeof EDGE_DIRS)[number];
+
+export const EDGE_TYPES: readonly string[] = EDGE_DIRS;
+
 const SCHEMA_TEMPLATE = `---
 type: schema
 title: "Vault Schema"
