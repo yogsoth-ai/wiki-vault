@@ -9,10 +9,11 @@ import { vaultQueryGraph } from './tools/vault-query-graph.js';
 import { vaultGraphStats } from './tools/vault-graph-stats.js';
 import { vaultLint } from './tools/vault-lint.js';
 import { vaultIndex } from './tools/vault-index.js';
+import { vaultInfo } from './tools/vault-info.js';
 
 const server = new McpServer({
   name: 'wiki-vault',
-  version: '0.1.0',
+  version: '1.1.0',
 });
 
 const vaultRoot = getVaultRoot();
@@ -96,6 +97,16 @@ server.tool(
   },
   async ({ full }) => {
     const result = await vaultIndex(vaultRoot, full);
+    return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
+  },
+);
+
+server.tool(
+  'vault_info',
+  'Returns vault metadata: root path, directory conventions, entity/edge types, and current stats. Call at session start to learn vault location.',
+  {},
+  async () => {
+    const result = await vaultInfo(vaultRoot);
     return { content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }] };
   },
 );
