@@ -1,0 +1,3 @@
+wiki-vault
+
+Research Knowledge Vault MCP Server — provides search, graph traversal, lint, and index operations for a structured Obsidian-compatible research wiki.
