@@ -1,6 +1,6 @@
 ---
 name: wiki-vault
-description: Knowledge vault MCP server + companion skills for structured wiki compilation. Use this skill whenever you need to search, query, lint, or compile knowledge into the vault. Provides 6 MCP tools for ranked search, graph traversal, and batch validation, plus 8 skills (2 tactics + 6 SOPs) for knowledge compilation workflows.
+description: Knowledge vault MCP server + companion skills for structured wiki compilation. Use this skill whenever you need to search, query, lint, or compile knowledge into the vault. Provides 7 MCP tools for ranked search, graph traversal, and batch validation, plus 8 skills (2 tactics + 6 SOPs) for knowledge compilation workflows.
 ---
 
 # Wiki Vault
@@ -20,7 +20,7 @@ Lightweight knowledge vault with structured graph, BM25 search, and batch valida
 ENTRY.md (this file)
   → Tactic (2): multi-step orchestration patterns
     → SOP (6): single-responsibility operations
-      → Tool (6): atomic MCP operations
+      → Tool (7): atomic MCP operations
 ```
 
 ## Skill Routing
@@ -36,7 +36,7 @@ ENTRY.md (this file)
 | 创建/更新页面、compile page、synthesize | → wiki-compile-page (SOP) |
 | 运行 lint、fix issues、validate vault | → wiki-lint-fix (SOP) |
 
-## MCP Tools (6)
+## MCP Tools (7)
 
 | Tool | Purpose |
 |------|---------|
@@ -46,6 +46,7 @@ ENTRY.md (this file)
 | `vault_graph_stats` | Global or per-node graph statistics |
 | `vault_lint` | Batch validation with optional auto-fix |
 | `vault_index` | Rebuild BM25 index (incremental or full) |
+| `vault_info` | Returns vault metadata (root, directories, types, stats) for session init |
 
 ## Entity Types (9)
 
